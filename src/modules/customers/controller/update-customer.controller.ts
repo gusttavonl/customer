@@ -14,8 +14,8 @@ import { UpdateCustomerApplicationInterface } from "../interfaces/applications/u
 import { Customer } from "../domain/customer.entity";
 import { Response } from "express";
 
-@Controller("customer")
-@ApiTags("Customer")
+@Controller("customers")
+@ApiTags("Customers")
 export class UpdateCustomerController {
   constructor(
     @Inject(TYPES.applications.UpdateCustomerApplicationInterface)

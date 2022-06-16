@@ -7,8 +7,8 @@ import { Customer } from "../domain/customer.entity";
 import { Response } from "express";
 import { ValidationPipe } from "../../../common/helpers/validation";
 
-@Controller("customer")
-@ApiTags("Customer")
+@Controller("customers")
+@ApiTags("Customers")
 export class CreateCustomerController {
   constructor(
     @Inject(TYPES.applications.CreateCustomerApplicationInterface)

@@ -5,8 +5,8 @@ import { GetCustomerApplicationInterface } from "../interfaces/applications/get-
 import { Customer } from "../domain/customer.entity";
 import { Response } from "express";
 
-@Controller("customer")
-@ApiTags("Customer")
+@Controller("customers")
+@ApiTags("Customers")
 export class GetCustomerController {
   constructor(
     @Inject(TYPES.applications.GetCustomerApplicationInterface)
