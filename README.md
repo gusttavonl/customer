@@ -7,6 +7,8 @@ O objetivo é mostrar uma API utilizando TDD como metodologia de trabalho sempre
 * POST para a rota do [SSO](https://accounts.seguros.vitta.com.br/auth/realms/careers/protocol/openid-connect/token/) para gerar um novo token
 * POST para a rota  [SSO Instrospect](https://accounts.seguros.vitta.com.br/auth/realms/careers/protocol/openid-connect/token/) para conferir se o status do token é ativo e dar permissão para as demais rotas da aplicacão
 
+OBS: para a validacao do token foi utilizada a seguinte documentacao sobre Instrospect no Keycloak [Instrospect DOC](https://github.com/keycloak/keycloak-documentation/blob/main/authorization_services/topics/service-rpt-token-introspection.adoc)
+
 > ## Rotas construídas no projeto
 * OBS: Para todas as rotas abaixo é necessário passar um Bearer token valido gerado com o [SSO](https://accounts.seguros.vitta.com.br/auth/realms/careers/protocol/openid-connect/token/)
 
