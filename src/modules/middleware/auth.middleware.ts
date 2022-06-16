@@ -11,22 +11,22 @@ export class AuthMiddleware implements NestMiddleware {
       const token = req.headers.authorization
       const [_, value] = token!.split(' ');
       
-      const keyGloakFormDataToValidateToken = {
+      const keyCloakFormDataToValidateToken = {
         token: value,
         client_secret: process.env.CLIENT_SECRET!,
         username: process.env.CLIENT_USERNAME!,
         client_id: process.env.CLIENT_ID!
       };
       
-      const keyGloakFormToValidateTokenFormated = new url.URLSearchParams(
-        keyGloakFormDataToValidateToken
+      const keyCloakFormToValidateTokenFormated = new url.URLSearchParams(
+        keyCloakFormDataToValidateToken
       ).toString();
 
-      const keyGloakInstrospesctTokenUrl = process.env
-        .KEYGLOACK_INSTROSPECT_URL as string;
+      const keyCloakInstrospesctTokenUrl = process.env
+        .KEYCLOAK_INSTROSPECT_URL as string;
       const response = await axios.post(
-        keyGloakInstrospesctTokenUrl,
-        keyGloakFormToValidateTokenFormated,
+        keyCloakInstrospesctTokenUrl,
+        keyCloakFormToValidateTokenFormated,
         {
           headers: { "content-type": "application/x-www-form-urlencoded" }
         }

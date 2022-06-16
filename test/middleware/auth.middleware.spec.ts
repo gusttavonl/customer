@@ -30,7 +30,7 @@ describe('AppController', () => {
   });
 
   it(`Should return 200 if SSO is available`, async () => {
-    mockAxios.onPost(process.env.KEYGLOACK_INSTROSPECT_URL).reply(200, { active: true });
+    mockAxios.onPost(process.env.KEYCLOAK_INSTROSPECT_URL).reply(200, { active: true });
 
     return await request(app.getHttpServer())
       .post('/customer')
@@ -43,7 +43,7 @@ describe('AppController', () => {
   });
 
   it(`Should return 401 if token is not active`, async () => {
-    mockAxios.onPost(process.env.KEYGLOACK_INSTROSPECT_URL).reply(200, { active: false });
+    mockAxios.onPost(process.env.KEYCLOAK_INSTROSPECT_URL).reply(200, { active: false });
 
     return await request(app.getHttpServer())
       .post('/customer')
@@ -56,7 +56,7 @@ describe('AppController', () => {
   });
 
   it(`Should return 502 if SSO is not available`, async () => {
-    mockAxios.onPost(process.env.KEYGLOACK_INSTROSPECT_URL).reply(500);
+    mockAxios.onPost(process.env.KEYCLOAK_INSTROSPECT_URL).reply(500);
 
     return await request(app.getHttpServer())
       .post('/customer')

@@ -22,7 +22,7 @@ services:
       - CLIENT_SECRET=453000f7-47a0-4489-bc47-891c742650e2
       - CLIENT_USERNAME=gustavonoronha0@hotmail.com
       - CLIENT_ID=customers
-      - KEYGLOACK_INSTROSPECT_URL=https://accounts.seguros.vitta.com.br/auth/realms/careers/protocol/openid-connect/token/introspect
+      - KEYCLOAK_INSTROSPECT_URL=https://accounts.seguros.vitta.com.br/auth/realms/careers/protocol/openid-connect/token/introspect
     expose:
       - '3000'
     links:
