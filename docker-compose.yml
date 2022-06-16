@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  redis:
+    container_name: redis
+    image: redis:6.2.5-alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_volume:/var/lib/redis
+  customer-api:
+    container_name: customer-api
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: customer-api
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=redis
+      - CLIENT_SECRET=453000f7-47a0-4489-bc47-891c742650e2
+      - CLIENT_USERNAME=gustavonoronha0@hotmail.com
+      - CLIENT_ID=customers
+      - KEYGLOACK_INSTROSPECT_URL=https://accounts.seguros.vitta.com.br/auth/realms/careers/protocol/openid-connect/token/introspect
+    expose:
+      - '3000'
+    links:
+      - redis
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./test:/usr/src/app/test
+    depends_on:
+      - redis
+    command: npm run start:dev
+
+volumes:
+  redis_volume:
