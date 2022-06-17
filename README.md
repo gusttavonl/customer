@@ -9,6 +9,8 @@ O objetivo é mostrar uma API utilizando TDD como metodologia de trabalho sempre
 
 OBS: para a validacao do token foi utilizada a seguinte documentacao sobre Instrospect no Keycloak [Instrospect DOC](https://github.com/keycloak/keycloak-documentation/blob/main/authorization_services/topics/service-rpt-token-introspection.adoc)
 
+> ## Sobre o .env estar no github e não apenas o env-example
+* Por motivos de facilitar os testes na API deixei o .env no github, assim é só baixar o projeto e testar, ja que o token ser gerado com emails diferentes não tem nenhum impacto.
 > ## Rotas construídas no projeto
 * OBS: Para todas as rotas abaixo é necessário passar um Bearer token valido gerado com o [SSO](https://accounts.seguros.vitta.com.br/auth/realms/careers/protocol/openid-connect/token/)
 
