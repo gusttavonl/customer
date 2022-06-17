@@ -1,6 +1,6 @@
 FROM node:14-alpine as customer-api
 
-WORKDIR /usr/src/app/
+WORKDIR /usr/src/
 
 COPY package*.json ./
 

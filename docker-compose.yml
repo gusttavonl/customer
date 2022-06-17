@@ -29,9 +29,6 @@ services:
       - redis
     ports:
       - '3000:3000'
-    volumes:
-      - ./src:/usr/src/app/src
-      - ./test:/usr/src/app/test
     depends_on:
       - redis
     command: npm run start:dev
