@@ -23,9 +23,9 @@ export class GetCustomerController {
   @Get(":id")
   async getById(
     @Param("id", new ParseUUIDPipe()) id: string,
-    @Res() res: Response,
+    @Res() response: Response,
   ) {
-    const response = await this.getCustomerApplication.getById(id);
-    return res.status(response.statusCode).json(response.body);
+    const findedCustomerHttReponse = await this.getCustomerApplication.getById(id);
+    return response.status(findedCustomerHttReponse.statusCode).json(findedCustomerHttReponse.body);
   }
 }

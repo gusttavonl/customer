@@ -30,12 +30,12 @@ export class UpdateCustomerController {
   async update(
     @Param("id", new ParseUUIDPipe()) id: string,
     @Body() customerDomain: CustomerDomain,
-    @Res() res: Response,
+    @Res() response: Response,
   ) {
-    const response = await this.updateCustomerApplication.update(
+    const updatedCustomerHttpResponse = await this.updateCustomerApplication.update(
       id,
       customerDomain
     );
-    return res.status(response.statusCode).json(response.body);
+    return response.status(updatedCustomerHttpResponse.statusCode).json(updatedCustomerHttpResponse.body);
   }
 }
