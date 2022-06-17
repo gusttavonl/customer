@@ -33,7 +33,7 @@ describe('AppController', () => {
     mockAxios.onPost(process.env.KEYCLOAK_INSTROSPECT_URL).reply(200, { active: true });
 
     return await request(app.getHttpServer())
-      .post('/customer')
+      .post('/customers')
       .send({
         name: 'any_name',
         document: 12345678910,
@@ -46,7 +46,7 @@ describe('AppController', () => {
     mockAxios.onPost(process.env.KEYCLOAK_INSTROSPECT_URL).reply(200, { active: false });
 
     return await request(app.getHttpServer())
-      .post('/customer')
+      .post('/customers')
       .send({
         name: 'any_name',
         document: 12345678910,
@@ -59,7 +59,7 @@ describe('AppController', () => {
     mockAxios.onPost(process.env.KEYCLOAK_INSTROSPECT_URL).reply(500);
 
     return await request(app.getHttpServer())
-      .post('/customer')
+      .post('/customers')
       .send({
         name: 'any_name',
         document: 12345678910,
