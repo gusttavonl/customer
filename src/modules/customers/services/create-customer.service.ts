@@ -11,7 +11,7 @@ import { CUSTOMER_KEY_REDIS } from "../../../common/consts";
 export class CreateCustomerService implements CreateCustomerServiceInterface {
   constructor() {}
 
-  async create(customerDomain: CustomerDomain): Promise<HttpResponse> {
+  async create(customerDataDomainToCreate: CustomerDomain): Promise<HttpResponse> {
     const redisClient = await RedisHelper.getClient();
 
     const uuidCustomer = uuidv4();
@@ -19,7 +19,7 @@ export class CreateCustomerService implements CreateCustomerServiceInterface {
 
     const customerToCreate = {
       id: uuidCustomer,
-      ...customerDomain
+      ...customerDataDomainToCreate
     };
 
     await redisClient.set(newKeyWithIdToCreateCustomer, JSON.stringify(customerToCreate));

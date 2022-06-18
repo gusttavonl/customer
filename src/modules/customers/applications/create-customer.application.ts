@@ -13,7 +13,7 @@ export class CreateCustomerApplication
     private createCustomerService: CreateCustomerServiceInterface
   ) {}
 
-  async create(customerDomain: CustomerDomain): Promise<HttpResponse> {
-    return this.createCustomerService.create(customerDomain);
+  async create(customerDataDomainToCreate: CustomerDomain): Promise<HttpResponse> {
+    return this.createCustomerService.create(customerDataDomainToCreate);
   }
 }

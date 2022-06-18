@@ -21,8 +21,8 @@ export class CreateCustomerController {
   })    
   @UsePipes(new ValidationPipe(CustomerDomain))
   @Post()
-  async create(@Body() customerDomain: CustomerDomain, @Res() response: Response) {
-    const createdCustomerHttpResponse = await this.createCustomerApplication.create(customerDomain);
+  async create(@Body() customerDataDomainToCreate: CustomerDomain, @Res() response: Response) {
+    const createdCustomerHttpResponse = await this.createCustomerApplication.create(customerDataDomainToCreate);
     return response.status(createdCustomerHttpResponse.statusCode).json(createdCustomerHttpResponse.body);
   }
 }

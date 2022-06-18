@@ -22,10 +22,10 @@ export class GetCustomerController {
   })
   @Get(":id")
   async getById(
-    @Param("id", new ParseUUIDPipe()) id: string,
+    @Param("id", new ParseUUIDPipe()) idCustomerToFind: string,
     @Res() response: Response,
   ) {
-    const findedCustomerHttReponse = await this.getCustomerApplication.getById(id);
+    const findedCustomerHttReponse = await this.getCustomerApplication.getById(idCustomerToFind);
     return response.status(findedCustomerHttReponse.statusCode).json(findedCustomerHttReponse.body);
   }
 }

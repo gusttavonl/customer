@@ -9,9 +9,9 @@ import { CUSTOMER_KEY_REDIS } from "../../../common/consts";
 export class GetCustomerService implements GetCustomerServiceInterface {
   constructor() {}
 
-  async getById(id: string): Promise<HttpResponse> {
+  async getById(idCustomerToFind: string): Promise<HttpResponse> {
     const redisClient = await RedisHelper.getClient();
-    const keyRedisWithIdToFindCustomer = `${CUSTOMER_KEY_REDIS}:${id}`;
+    const keyRedisWithIdToFindCustomer = `${CUSTOMER_KEY_REDIS}:${idCustomerToFind}`;
     const customerFinded = await redisClient.get(keyRedisWithIdToFindCustomer);
    
     const customerNotFound = !customerFinded
