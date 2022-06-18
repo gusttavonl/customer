@@ -1,18 +1,22 @@
 import * as httpMocks from 'node-mocks-http';
+import { v4 as uuidv4 } from "uuid";
 import { Test, TestingModule } from "@nestjs/testing";
 import { UpdateCustomerController } from "../../../src/modules/customers/controller/update-customer.controller";
 import { UpdateCustomerApplicationInterface } from "../../../src/modules/customers/interfaces/applications/update-customer.application.interface";
 import { TYPES } from "../../../src/modules/customers/interfaces/types";
 import { Response } from 'express';
 import { HttpResponse } from '../../../src/common/helpers/http';
+import { Customer } from '../../../src/modules/customers/domain/customer.entity';
+import { CustomerDomainWithId } from '../../../src/modules/customers/domain/customer.domain';
 
-const customerDataDomain = {
+const customerDomainWithId: CustomerDomainWithId = {
+  id: uuidv4(),
   name: "any_name",
   document: 12345678910
 };
 
-const customer = {
-  id: 'any_id',
+const customer: Customer = {
+  id: uuidv4(),
   name: "any_name",
   document: 12345678910
 };
@@ -54,7 +58,7 @@ describe("Update Customer Controller", () => {
       const httpResponseMock = httpMocks.createResponse() as Response;
       jest.spyOn(updateCustomerAppMock, "update");
 
-      const customerUpdatedHttpResponse = await controller.update(customer.id, customerDataDomain, httpResponseMock)
+      const customerUpdatedHttpResponse = await controller.update(customer.id, customerDomainWithId, httpResponseMock)
       expect(customerUpdatedHttpResponse.statusCode).toEqual(updatedCustomerHttpResponse.statusCode);
       expect(updateCustomerAppMock.update).toBeCalled();
     });

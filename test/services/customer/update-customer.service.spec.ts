@@ -1,5 +1,7 @@
 import { Redis } from "ioredis";
-import { notFound } from "../../../src/common/helpers/http";
+import { CustomerDomainWithId } from "../../../src/modules/customers/domain/customer.domain";
+import { v4 as uuidv4 } from "uuid";
+import { conflict, notFound } from "../../../src/common/helpers/http";
 import { RedisHelper } from "../../../src/common/helpers/redis";
 import { CreateCustomerService } from "../../../src/modules/customers/services/create-customer.service";
 import { UpdateCustomerService } from "../../../src/modules/customers/services/update-customer.service";
@@ -29,8 +31,10 @@ describe("UpdateCustomerService", () => {
       const customerCreatedHttpResponse = await sutCreateCustomer.create(
         customerDataToCreate
       );
-
-      const customerDataToUpdate = {
+      
+      const newUuidCustomerToUpdate = uuidv4();
+      const customerDataToUpdate: CustomerDomainWithId = {
+        id: newUuidCustomerToUpdate,
         name: "updated_name",
         document: 10987654321
       };
@@ -43,7 +47,7 @@ describe("UpdateCustomerService", () => {
 
       const customerUpdated = customerUpdatedHttpResponse.body
       
-      expect(customerUpdated.id).toEqual(customerCreatedId);
+      expect(customerUpdated.id).toEqual(newUuidCustomerToUpdate);
       expect(customerUpdated.name).toEqual(customerDataToUpdate.name);
       expect(customerUpdated.document).toEqual(customerDataToUpdate.document);
     });
@@ -51,7 +55,8 @@ describe("UpdateCustomerService", () => {
     it("should return not found", async () => {
       const sutUpdateCustomer = new UpdateCustomerService();
 
-      const customerDataToUpdate = {
+      const customerDataToUpdate: CustomerDomainWithId = {
+        id: 'new_id',
         name: "updated_name",
         document: 10987654321
       };
@@ -65,6 +70,36 @@ describe("UpdateCustomerService", () => {
       const NotFoundWithErrorMessage = notFound("customer not found")
       expect(customerNotUpdatedHttpResponse.statusCode).toEqual(NotFoundWithErrorMessage.statusCode);
       expect(customerNotUpdatedHttpResponse.body).toEqual(NotFoundWithErrorMessage.body);
+    });
+
+    it("should return conflict", async () => {
+      const sutCreateCustomer = new CreateCustomerService();
+      const sutUpdateCustomer = new UpdateCustomerService();
+
+      const customerDataToCreate = makeCustomerDomain();
+      const customerCreatedHttpResponse = await sutCreateCustomer.create(
+        customerDataToCreate
+      );
+
+
+      const customerCreatedId = customerCreatedHttpResponse.body.id
+
+      const customerDataToUpdate: CustomerDomainWithId = {
+        id: customerCreatedId,
+        name: "updated_name",
+        document: 10987654321
+      };
+
+      const customerUpdatedHttpResponse = await sutUpdateCustomer.update(
+        customerCreatedId,
+        customerDataToUpdate
+      );
+
+      const customerNotUpdatedWithConflictHttpResponse = customerUpdatedHttpResponse
+      
+      const ConflictWithErrorMessage = conflict("id conflict")
+      expect(customerNotUpdatedWithConflictHttpResponse.statusCode).toEqual(ConflictWithErrorMessage.statusCode);
+      expect(customerNotUpdatedWithConflictHttpResponse.body).toEqual(ConflictWithErrorMessage.body);
     });
   });
 });
