@@ -14,10 +14,11 @@ export class GetCustomerService implements GetCustomerServiceInterface {
     const keyRedisWithIdToFindCustomer = `${CUSTOMER_KEY_REDIS}:${id}`;
     const customerFinded = await redisClient.get(keyRedisWithIdToFindCustomer);
    
-    if(!customerFinded){
+    const customerNotFound = !customerFinded
+    if(customerNotFound){
       return notFound("customer not found");
     }
     
-    return ok(JSON.parse(customerFinded) as Customer)
+    return ok(JSON.parse(customerFinded))
   }
 }
