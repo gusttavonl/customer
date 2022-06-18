@@ -1,4 +1,5 @@
 import { Redis } from "ioredis";
+import { v4 as uuidv4 } from "uuid";
 import { notFound } from "../../../src/common/helpers/http";
 import { RedisHelper } from "../../../src/common/helpers/redis";
 import { CreateCustomerService } from "../../../src/modules/customers/services/create-customer.service";
@@ -37,11 +38,11 @@ describe("GetCustomerService", () => {
 
     it("should return not found error", async () => {
       const sutGetCustomer = new GetCustomerService();
-      const customerNotFoundHttpResponse = await sutGetCustomer.getById('any_id');
+      const idNotFound =  uuidv4();
+      const customerNotFoundHttpResponse = await sutGetCustomer.getById(idNotFound);
       const NotFoundWithErrorMessage = notFound("customer not found")
       expect(customerNotFoundHttpResponse.statusCode).toEqual(NotFoundWithErrorMessage.statusCode);
       expect(customerNotFoundHttpResponse.body).toEqual(NotFoundWithErrorMessage.body);
     });
-
   });
 });

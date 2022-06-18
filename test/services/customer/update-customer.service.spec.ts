@@ -56,17 +56,17 @@ describe("UpdateCustomerService", () => {
       const sutUpdateCustomer = new UpdateCustomerService();
 
       const customerDataToUpdate: CustomerDomainWithId = {
-        id: 'new_id',
+        id: uuidv4(),
         name: "updated_name",
         document: 10987654321
       };
 
-      const customerNotCreatedIdNotFound = "any_id"
+      const customerNotCreatedIdNotFound = uuidv4();
       const customerNotUpdatedHttpResponse = await sutUpdateCustomer.update(
         customerNotCreatedIdNotFound,
         customerDataToUpdate
       );
-
+      
       const NotFoundWithErrorMessage = notFound("customer not found")
       expect(customerNotUpdatedHttpResponse.statusCode).toEqual(NotFoundWithErrorMessage.statusCode);
       expect(customerNotUpdatedHttpResponse.body).toEqual(NotFoundWithErrorMessage.body);
