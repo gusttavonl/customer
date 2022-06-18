@@ -10,7 +10,7 @@ export class GetCustomerService implements GetCustomerServiceInterface {
 
   async getById(id: string): Promise<HttpResponse> {
     const redisClient = await RedisHelper.getClient();
-    const customerKeyRedis = `customers:${id}`;
+    const customerKeyRedis = `customer:${id}`;
     const customerFinded = await redisClient.get(customerKeyRedis);
    
     if(!customerFinded){

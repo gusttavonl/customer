@@ -12,7 +12,7 @@ export class UpdateCustomerService implements UpdateCustomerServiceInterface {
   async update(id: string, customerDomain: CustomerDomain): Promise<HttpResponse> {
     const redisClient = await RedisHelper.getClient();
 
-    const customerKeyRedis = `customers:${id}`
+    const customerKeyRedis = `customer:${id}`
     const customerFinded = await redisClient.get(customerKeyRedis);
 
     if(!customerFinded){

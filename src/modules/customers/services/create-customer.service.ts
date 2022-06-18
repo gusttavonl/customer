@@ -14,7 +14,7 @@ export class CreateCustomerService implements CreateCustomerServiceInterface {
     const redisClient = await RedisHelper.getClient();
 
     const uuidCustomer = uuidv4();
-    const newKeyCustomerWithUuid = `customers:${uuidCustomer}`;
+    const newKeyCustomerWithUuid = `customer:${uuidCustomer}`;
 
     const customerToCreate = {
       id: uuidCustomer,
