@@ -6,10 +6,10 @@ import { notAvailable, unauthorized } from "../../common/helpers/http";
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  async use(req: Request, res: Response, next: NextFunction) {
+  async use(request: Request, response: Response, next: NextFunction) {
     try {
-      const token = req.headers.authorization
-      const [_, value] = token!.split(' ');
+      const bearerTokenToValidate = request.headers.authorization
+      const [_, value] = bearerTokenToValidate!.split(' ');
       
       const keyCloakFormDataToValidateToken = {
         token: value,
@@ -22,28 +22,30 @@ export class AuthMiddleware implements NestMiddleware {
         keyCloakFormDataToValidateToken
       ).toString();
 
+      const contentTypeForm =  { "content-type": "application/x-www-form-urlencoded" }
+
       const keyCloakInstrospesctTokenUrl = process.env
         .KEYCLOAK_INSTROSPECT_URL as string;
-      const response = await axios.post(
+      const responseWithInfoToken = await axios.post(
         keyCloakInstrospesctTokenUrl,
         keyCloakFormToValidateTokenFormated,
         {
-          headers: { "content-type": "application/x-www-form-urlencoded" }
+          headers: contentTypeForm
         }
       );
 
-      const tokenIsActive = response.data.active;
+      const tokenIsActive = responseWithInfoToken.data.active;
 
       if (!tokenIsActive) {
-        return res.status(unauthorized().statusCode).json(unauthorized);
+        return response.status(unauthorized().statusCode).json(unauthorized);
       }
 
       return next();
       
     } catch (error) {
-      return res
+      return response
         .status(notAvailable().statusCode)
-        .json(notAvailable(`sso not avaliable with error: ${error}`));
+        .json(notAvailable(`sso not avaliable with error: ${error}`).body);
     }
   }
 }
