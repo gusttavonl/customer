@@ -32,3 +32,8 @@ export const notAvailable = (errorMessage?: string): HttpResponse => ({
   statusCode: 502,
   body: errorMessage
 });
+
+export const conflict = (errorMessage?: string): HttpResponse => ({
+  statusCode: 409,
+  body: errorMessage
+});
