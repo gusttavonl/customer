@@ -1,9 +1,9 @@
 import { Injectable, Inject } from "@nestjs/common";
+import { HttpResponse } from "src/common/helpers/http";
 import { CustomerDomainWithId } from "../domain/customer.domain";
 import { TYPES } from "../interfaces/types";
 import { UpdateCustomerApplicationInterface } from "../interfaces/applications/update-customer.application.interface";
 import { UpdateCustomerServiceInterface } from "../interfaces/services/update-customer-service.interface";
-import { HttpResponse } from "src/common/helpers/http";
 
 @Injectable()
 export class UpdateCustomerApplication

@@ -1,11 +1,11 @@
+import { Response } from "express";
 import { Controller, Inject, Post, Body, UsePipes, Res } from "@nestjs/common";
 import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
+import { ValidationPipe } from "../../../common/helpers/validation";
 import { CustomerDomain } from "../domain/customer.domain";
 import { TYPES } from "../interfaces/types";
 import { CreateCustomerApplicationInterface } from "../interfaces/applications/create-customer.application.interface";
 import { Customer } from "../domain/customer.entity";
-import { Response } from "express";
-import { ValidationPipe } from "../../../common/helpers/validation";
 
 @Controller("customers")
 @ApiTags("Customers")

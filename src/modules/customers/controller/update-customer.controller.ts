@@ -1,3 +1,4 @@
+import { Response } from "express";
 import {
   Controller,
   Inject,
@@ -12,8 +13,6 @@ import { CustomerDomainWithId } from "../domain/customer.domain";
 import { TYPES } from "../interfaces/types";
 import { UpdateCustomerApplicationInterface } from "../interfaces/applications/update-customer.application.interface";
 import { Customer } from "../domain/customer.entity";
-import { Response } from "express";
-
 @Controller("customers")
 @ApiTags("Customers")
 export class UpdateCustomerController {

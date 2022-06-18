@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CustomerDomainWithId } from '../domain/customer.domain';
-import { RedisHelper } from '../../../common/helpers/redis';
-import { Customer } from '../domain/customer.entity';
-import { UpdateCustomerServiceInterface } from '../interfaces/services/update-customer-service.interface';
 import { notFound, ok, HttpResponse, conflict } from '../../../common/helpers/http';
+import { RedisHelper } from '../../../common/helpers/redis';
 import { CUSTOMER_KEY_REDIS } from "../../../common/consts";
+import { CustomerDomainWithId } from '../domain/customer.domain';
+import { UpdateCustomerServiceInterface } from '../interfaces/services/update-customer-service.interface';
 
 @Injectable()
 export class UpdateCustomerService implements UpdateCustomerServiceInterface {

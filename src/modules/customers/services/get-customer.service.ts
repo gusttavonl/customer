@@ -1,10 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { Customer } from "../domain/customer.entity";
-import { GetCustomerServiceInterface } from "../interfaces/services/get-customer-service-interface";
 import { RedisHelper } from "../../../common/helpers/redis";
 import { HttpResponse, notFound, ok } from "../../../common/helpers/http";
 import { CUSTOMER_KEY_REDIS } from "../../../common/consts";
-
+import { GetCustomerServiceInterface } from "../interfaces/services/get-customer-service-interface";
 @Injectable()
 export class GetCustomerService implements GetCustomerServiceInterface {
   constructor() {}
