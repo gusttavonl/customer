@@ -1,6 +1,6 @@
 import { Redis } from "ioredis";
-import { CustomerDomainWithId } from "../../../src/modules/customers/domain/customer.domain";
 import { v4 as uuidv4 } from "uuid";
+import { CustomerDomainWithId } from "../../../src/modules/customers/domain/customer.domain";
 import { conflict, notFound } from "../../../src/common/helpers/http";
 import { RedisHelper } from "../../../src/common/helpers/redis";
 import { CreateCustomerService } from "../../../src/modules/customers/services/create-customer.service";

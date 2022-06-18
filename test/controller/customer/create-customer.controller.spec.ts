@@ -1,9 +1,9 @@
 import * as httpMocks from 'node-mocks-http';
+import { Response } from 'express';
 import { Test, TestingModule } from "@nestjs/testing";
 import { CreateCustomerController } from "../../../src/modules/customers/controller/create-customer.controller";
 import { CreateCustomerApplicationInterface } from "../../../src/modules/customers/interfaces/applications/create-customer.application.interface";
 import { TYPES } from "../../../src/modules/customers/interfaces/types";
-import { Response } from 'express';
 import { HttpResponse } from '../../../src/common/helpers/http';
 
 const customerDataDomain = {

@@ -1,10 +1,10 @@
 import * as httpMocks from 'node-mocks-http';
 import { v4 as uuidv4 } from "uuid";
+import { Response } from 'express';
 import { Test, TestingModule } from "@nestjs/testing";
 import { UpdateCustomerController } from "../../../src/modules/customers/controller/update-customer.controller";
 import { UpdateCustomerApplicationInterface } from "../../../src/modules/customers/interfaces/applications/update-customer.application.interface";
 import { TYPES } from "../../../src/modules/customers/interfaces/types";
-import { Response } from 'express';
 import { HttpResponse } from '../../../src/common/helpers/http';
 import { Customer } from '../../../src/modules/customers/domain/customer.entity';
 import { CustomerDomainWithId } from '../../../src/modules/customers/domain/customer.domain';

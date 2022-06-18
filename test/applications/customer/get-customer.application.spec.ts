@@ -1,8 +1,8 @@
 import { Test } from "@nestjs/testing";
+import { GetCustomerServiceInterface } from "src/modules/customers/interfaces/services/get-customer-service-interface";
 import { GetCustomerApplication } from "../../../src/modules/customers/applications/get-customer.application";
 import { TYPES } from "../../../src/modules/customers/interfaces/types";
 import { Customer } from "../../../src/modules/customers/domain/customer.entity";
-import { GetCustomerServiceInterface } from "src/modules/customers/interfaces/services/get-customer-service-interface";
 
 const customer: Customer = {
   id: 'any_id',

@@ -3,8 +3,8 @@ import {
   IsNotEmpty,
   IsNumber,
 } from 'class-validator';
-import { ValidationPipe } from '../../src/common/helpers/validation';
 import { ApiProperty } from '@nestjs/swagger';
+import { ValidationPipe } from '../../src/common/helpers/validation';
 import { badRequest } from '../../src/common/helpers/http';
 
 class TestDomain {
