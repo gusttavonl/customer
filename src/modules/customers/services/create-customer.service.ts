@@ -5,6 +5,7 @@ import { CreateCustomerServiceInterface } from "../interfaces/services/create-cu
 import { RedisHelper } from "../../../common/helpers/redis";
 import { Customer } from "../domain/customer.entity";
 import { created, HttpResponse } from "../../../common/helpers/http";
+import { CUSTOMER_KEY_REDIS } from "../../../common/consts";
 
 @Injectable()
 export class CreateCustomerService implements CreateCustomerServiceInterface {
@@ -14,16 +15,16 @@ export class CreateCustomerService implements CreateCustomerServiceInterface {
     const redisClient = await RedisHelper.getClient();
 
     const uuidCustomer = uuidv4();
-    const newKeyCustomerWithUuid = `customer:${uuidCustomer}`;
+    const newKeyWithIdToCreateCustomer = `${CUSTOMER_KEY_REDIS}:${uuidCustomer}`;
 
     const customerToCreate = {
       id: uuidCustomer,
       ...customerDomain
     };
 
-    await redisClient.set(newKeyCustomerWithUuid, JSON.stringify(customerToCreate));
+    await redisClient.set(newKeyWithIdToCreateCustomer, JSON.stringify(customerToCreate));
     
-    const createdCustomer = await redisClient.get(newKeyCustomerWithUuid);
+    const createdCustomer = await redisClient.get(newKeyWithIdToCreateCustomer);
 
     return created(JSON.parse(createdCustomer) as Customer)
   }
