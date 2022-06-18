@@ -1,6 +1,6 @@
 import { HttpResponse } from "src/common/helpers/http";
-import { CustomerDomain } from "src/modules/customers/domain/customer.domain";
+import { CustomerDomainWithId } from "src/modules/customers/domain/customer.domain";
 
 export interface UpdateCustomerApplicationInterface {
-  update(id: string, customerDomain: CustomerDomain): Promise<HttpResponse>;
+  update(idCustomerToUpdate: string, customerDataToUpdate: CustomerDomainWithId): Promise<HttpResponse>;
 }

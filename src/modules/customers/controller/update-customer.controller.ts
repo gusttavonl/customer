@@ -8,7 +8,7 @@ import {
   Res
 } from "@nestjs/common";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
-import { CustomerDomain } from "../domain/customer.domain";
+import { CustomerDomainWithId } from "../domain/customer.domain";
 import { TYPES } from "../interfaces/types";
 import { UpdateCustomerApplicationInterface } from "../interfaces/applications/update-customer.application.interface";
 import { Customer } from "../domain/customer.entity";
@@ -28,13 +28,13 @@ export class UpdateCustomerController {
   })
   @Put(":id")
   async update(
-    @Param("id", new ParseUUIDPipe()) id: string,
-    @Body() customerDomain: CustomerDomain,
+    @Param("id", new ParseUUIDPipe()) idCustomerToUpdate: string,
+    @Body() customerDataToUpdate: CustomerDomainWithId,
     @Res() response: Response,
   ) {
     const updatedCustomerHttpResponse = await this.updateCustomerApplication.update(
-      id,
-      customerDomain
+      idCustomerToUpdate,
+      customerDataToUpdate
     );
     return response.status(updatedCustomerHttpResponse.statusCode).json(updatedCustomerHttpResponse.body);
   }
