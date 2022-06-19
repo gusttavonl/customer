@@ -22,6 +22,6 @@ export class CreateCustomerService implements CreateCustomerServiceInterface {
     
     const createdCustomer = await redisClient.get(newKeyWithIdToCreateCustomer);
 
-    return created(JSON.parse(createdCustomer))
+    return created(JSON.parse(createdCustomer));
   }
 }

@@ -12,7 +12,6 @@ export class GetCustomerApplication implements GetCustomerApplicationInterface {
   ) {}
 
   async getById(idCustomerToFind: string): Promise<HttpResponse> {
-    const customer = this.getCustomerService.getById(idCustomerToFind);
-    return customer;
+    return this.getCustomerService.getById(idCustomerToFind);
   }
 }

@@ -12,19 +12,19 @@ export class UpdateCustomerService implements UpdateCustomerServiceInterface {
    
     const allCustomersKey = await redisClient.keys(`${CUSTOMER_KEY_REDIS}:*`);
     const newIdToCustomer = customerDataToUpdate.id;
-    const keyWithNewIdCustomer = `${CUSTOMER_KEY_REDIS}:${newIdToCustomer}`
+    const keyWithNewIdCustomer = `${CUSTOMER_KEY_REDIS}:${newIdToCustomer}`;
     const newIdCustomerExistsOnCustomerKeys = allCustomersKey.includes(keyWithNewIdCustomer);
     
-    const idCustomerToUpdateIsDifferentOfNewIdCustomer = idCustomerToUpdate !== newIdToCustomer
-    const newIdCustomerAlreadyExistsOnCustomerKeys = idCustomerToUpdateIsDifferentOfNewIdCustomer && newIdCustomerExistsOnCustomerKeys
+    const idCustomerToUpdateIsDifferentOfNewIdCustomer = idCustomerToUpdate !== newIdToCustomer;
+    const newIdCustomerAlreadyExistsOnCustomerKeys = idCustomerToUpdateIsDifferentOfNewIdCustomer && newIdCustomerExistsOnCustomerKeys;
     if(newIdCustomerAlreadyExistsOnCustomerKeys){
       return conflict("id conflict");
     }
 
-    const keyWithIdCustomerToUpdateValues = `${CUSTOMER_KEY_REDIS}:${idCustomerToUpdate}`
+    const keyWithIdCustomerToUpdateValues = `${CUSTOMER_KEY_REDIS}:${idCustomerToUpdate}`;
     const customerFinded = await redisClient.get(keyWithIdCustomerToUpdateValues);
 
-    const customerNotFound = !customerFinded
+    const customerNotFound = !customerFinded;
     if(customerNotFound){
       return notFound("customer not found");
     }
@@ -37,12 +37,12 @@ export class UpdateCustomerService implements UpdateCustomerServiceInterface {
     );
 
     if(idCustomerToUpdateIsDifferentOfNewIdCustomer){
-      const oldKeyWithCustomerUpdatedId = keyWithIdCustomerToUpdateValues
+      const oldKeyWithCustomerUpdatedId = keyWithIdCustomerToUpdateValues;
       await redisClient.del(
         oldKeyWithCustomerUpdatedId,
       );
     }
 
-    return ok(updatedCustomer)
+    return ok(updatedCustomer);
   }
 }

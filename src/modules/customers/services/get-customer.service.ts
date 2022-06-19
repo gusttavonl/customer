@@ -15,6 +15,6 @@ export class GetCustomerService implements GetCustomerServiceInterface {
       return notFound("customer not found");
     }
     
-    return ok(JSON.parse(customerFinded))
+    return ok(JSON.parse(customerFinded));
   }
 }

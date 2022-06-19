@@ -8,7 +8,7 @@ import { notAvailable, unauthorized } from "../../common/helpers/http";
 export class AuthMiddleware implements NestMiddleware {
   async use(request: Request, response: Response, next: NextFunction) {
     try {
-      const bearerTokenToValidate = request.headers.authorization
+      const bearerTokenToValidate = request.headers.authorization;
       const [_, value] = bearerTokenToValidate!.split(' ');
       
       const keyCloakFormDataToValidateToken = {
@@ -22,7 +22,7 @@ export class AuthMiddleware implements NestMiddleware {
         keyCloakFormDataToValidateToken
       ).toString();
 
-      const contentTypeForm =  { "content-type": "application/x-www-form-urlencoded" }
+      const contentTypeForm =  { "content-type": "application/x-www-form-urlencoded" };
 
       const keyCloakInstrospesctTokenUrl = process.env
         .KEYCLOAK_INSTROSPECT_URL as string;
