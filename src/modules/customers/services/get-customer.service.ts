@@ -5,8 +5,6 @@ import { CUSTOMER_KEY_REDIS } from "../../../common/consts";
 import { GetCustomerServiceInterface } from "../interfaces/services/get-customer-service-interface";
 @Injectable()
 export class GetCustomerService implements GetCustomerServiceInterface {
-  constructor() {}
-
   async getById(idCustomerToFind: string): Promise<HttpResponse> {
     const redisClient = await RedisHelper.getClient();
     const keyRedisWithIdToFindCustomer = `${CUSTOMER_KEY_REDIS}:${idCustomerToFind}`;

@@ -7,8 +7,6 @@ import { UpdateCustomerServiceInterface } from '../interfaces/services/update-cu
 
 @Injectable()
 export class UpdateCustomerService implements UpdateCustomerServiceInterface {
-  constructor() { }
-
   async update(idCustomerToUpdate: string, customerDataToUpdate: CustomerDomainWithId): Promise<HttpResponse> {
     const redisClient = await RedisHelper.getClient();
    

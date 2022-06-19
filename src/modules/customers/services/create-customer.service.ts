@@ -7,8 +7,6 @@ import { CustomerDomain } from "../domain/customer.domain";
 import { CreateCustomerServiceInterface } from "../interfaces/services/create-customer-service.interface";
 @Injectable()
 export class CreateCustomerService implements CreateCustomerServiceInterface {
-  constructor() {}
-
   async create(customerDataDomainToCreate: CustomerDomain): Promise<HttpResponse> {
     const redisClient = await RedisHelper.getClient();
 
