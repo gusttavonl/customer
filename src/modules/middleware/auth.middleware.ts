@@ -1,8 +1,8 @@
-import * as url from "url";
-import axios from "axios";
-import { Injectable, NestMiddleware } from "@nestjs/common";
-import { Response, Request, NextFunction } from "express-serve-static-core";
-import { notAvailable, unauthorized } from "../../common/helpers/http";
+import * as url from 'url';
+import axios from 'axios';
+import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Response, Request, NextFunction } from 'express-serve-static-core';
+import { notAvailable, unauthorized } from '../../common/helpers/http';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
@@ -10,19 +10,21 @@ export class AuthMiddleware implements NestMiddleware {
     try {
       const bearerTokenToValidate = request.headers.authorization;
       const [_, value] = bearerTokenToValidate!.split(' ');
-      
+
       const keyCloakFormDataToValidateToken = {
         token: value,
         client_secret: process.env.CLIENT_SECRET!,
         username: process.env.CLIENT_USERNAME!,
-        client_id: process.env.CLIENT_ID!
+        client_id: process.env.CLIENT_ID!,
       };
-      
+
       const keyCloakFormToValidateTokenFormated = new url.URLSearchParams(
-        keyCloakFormDataToValidateToken
+        keyCloakFormDataToValidateToken,
       ).toString();
 
-      const contentTypeForm =  { "content-type": "application/x-www-form-urlencoded" };
+      const contentTypeForm = {
+        'content-type': 'application/x-www-form-urlencoded',
+      };
 
       const keyCloakInstrospesctTokenUrl = process.env
         .KEYCLOAK_INSTROSPECT_URL as string;
@@ -30,8 +32,8 @@ export class AuthMiddleware implements NestMiddleware {
         keyCloakInstrospesctTokenUrl,
         keyCloakFormToValidateTokenFormated,
         {
-          headers: contentTypeForm
-        }
+          headers: contentTypeForm,
+        },
       );
 
       const tokenIsActive = responseWithInfoToken.data.active;
@@ -41,7 +43,6 @@ export class AuthMiddleware implements NestMiddleware {
       }
 
       return next();
-      
     } catch (error) {
       return response
         .status(notAvailable().statusCode)
