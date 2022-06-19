@@ -10,13 +10,10 @@
         "start:dev": "nest start -w",
         "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
         "start:prod": "node dist/main.js",
-        "lint": "eslint --fix './src/**/*.ts'",
         "test": "jest",
         "test:watch": "jest --watch",
         "test:cov": "jest --coverage",
-        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-        "test:e2e:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --config ./test/jest-e2e.json",
-        "test:e2e": "jest --config ./test/jest-e2e.json --detectOpenHandles"
+        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
     },
     "dependencies": {
         "@nestjs/common": "^8.4.6",
