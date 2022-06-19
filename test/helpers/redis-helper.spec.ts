@@ -14,17 +14,17 @@ describe('RedisMockHelper', () => {
   afterAll(async () => {
     redisClient && (await redisClient.quit());
   });
-  
+
   it('should set and get values from key Redis', async () => {
     await redisClient.set('key', 'values');
     const response = await redisClient.get('key');
     expect(response).toEqual('values');
-    await redisClient.del('key')
+    await redisClient.del('key');
   });
 
   it('should return redis not available', async () => {
     const response = await redisClientNotAvaliable;
     expect(response.statusCode).toEqual(notAvailable().statusCode);
-    expect(response.body).toEqual(notAvailable("redis not available").body);
+    expect(response.body).toEqual(notAvailable('redis not available').body);
   });
 });

@@ -1,27 +1,27 @@
 import * as httpMocks from 'node-mocks-http';
-import { Test, TestingModule } from "@nestjs/testing";
-import { Response } from "express-serve-static-core";
-import { GetCustomerController } from "../../../src/modules/customers/controller/get-customer.controller";
-import { GetCustomerApplicationInterface } from "../../../src/modules/customers/interfaces/applications/get-customer.application.interface";
-import { TYPES } from "../../../src/modules/customers/interfaces/types";
+import { Test, TestingModule } from '@nestjs/testing';
+import { Response } from 'express-serve-static-core';
+import { GetCustomerController } from '../../../src/modules/customers/controller/get-customer.controller';
+import { GetCustomerApplicationInterface } from '../../../src/modules/customers/interfaces/applications/get-customer.application.interface';
+import { TYPES } from '../../../src/modules/customers/interfaces/types';
 import { HttpResponse } from '../../../src/common/helpers/http';
 
 const customer = {
   id: 'any_id',
-  name: "any_name",
-  document: 12345678910
+  name: 'any_name',
+  document: 12345678910,
 };
 
 const getCustomerHttpResponse: HttpResponse = {
   statusCode: 200,
-  body: customer
-}
+  body: customer,
+};
 
 class GetCustomerApplicationMock {
   getById = jest.fn().mockResolvedValue(getCustomerHttpResponse);
 }
 
-describe("Get Customer Controller", () => {
+describe('Get Customer Controller', () => {
   let controller: GetCustomerController;
   let getCustomerAppMock: GetCustomerApplicationInterface;
 
@@ -31,26 +31,33 @@ describe("Get Customer Controller", () => {
       providers: [
         {
           provide: TYPES.applications.GetCustomerApplicationInterface,
-          useClass: GetCustomerApplicationMock
+          useClass: GetCustomerApplicationMock,
         },
-      ]
+      ],
     }).compile();
 
     controller = module.get<GetCustomerController>(GetCustomerController);
-    getCustomerAppMock = module.get(TYPES.applications.GetCustomerApplicationInterface);
+    getCustomerAppMock = module.get(
+      TYPES.applications.GetCustomerApplicationInterface,
+    );
   });
 
-  it("should be defined", () => {
+  it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  describe("getById", () => {
-    it("should get customer", async () => {
+  describe('getById', () => {
+    it('should get customer', async () => {
       const httpResponseMock = httpMocks.createResponse() as Response;
-      jest.spyOn(getCustomerAppMock, "getById");
+      jest.spyOn(getCustomerAppMock, 'getById');
 
-      const customerFindedHttpResponse = await controller.getById(customer.id, httpResponseMock);
-      expect(customerFindedHttpResponse.statusCode).toBe(getCustomerHttpResponse.statusCode);
+      const customerFindedHttpResponse = await controller.getById(
+        customer.id,
+        httpResponseMock,
+      );
+      expect(customerFindedHttpResponse.statusCode).toBe(
+        getCustomerHttpResponse.statusCode,
+      );
       expect(getCustomerAppMock.getById).toBeCalled();
     });
   });

@@ -1,8 +1,4 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsNumber,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { ValidationPipe } from '../../src/common/helpers/validation';
 import { badRequest } from '../../src/common/helpers/http';
@@ -17,7 +13,6 @@ class TestDomain {
   @IsNumber()
   @ApiProperty()
   document: number;
-
 }
 
 describe('ValidationPipe', () => {
@@ -28,7 +23,7 @@ describe('ValidationPipe', () => {
   };
 
   describe('when data is not valid', () => {
-    it('should throw error', done => {
+    it('should throw error', (done) => {
       validationPipe = new ValidationPipe(TestDomain);
       const newCustomer = {
         name: 'any_name',
@@ -42,13 +37,12 @@ describe('ValidationPipe', () => {
           metatype: TestDomain,
         })
         .then(() => done('Error, Should not get here'))
-        .catch(error => {
+        .catch((error) => {
           expect(error.response.message).toEqual('Validation Failed');
           expect(error.status).toBe(badRequest(error).statusCode);
           done();
         });
     });
-     
   });
 
   describe('when no transform needed', () => {

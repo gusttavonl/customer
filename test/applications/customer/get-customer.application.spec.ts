@@ -1,21 +1,20 @@
-import { Test } from "@nestjs/testing";
-import { GetCustomerServiceInterface } from "src/modules/customers/interfaces/services/get-customer-service-interface";
-import { GetCustomerApplication } from "../../../src/modules/customers/applications/get-customer.application";
-import { TYPES } from "../../../src/modules/customers/interfaces/types";
-import { Customer } from "../../../src/modules/customers/domain/customer.entity";
+import { Test } from '@nestjs/testing';
+import { GetCustomerServiceInterface } from 'src/modules/customers/interfaces/services/get-customer-service-interface';
+import { GetCustomerApplication } from '../../../src/modules/customers/applications/get-customer.application';
+import { TYPES } from '../../../src/modules/customers/interfaces/types';
+import { Customer } from '../../../src/modules/customers/domain/customer.entity';
 
 const customer: Customer = {
   id: 'any_id',
-  name: "any_name",
-  document: 12345678910
+  name: 'any_name',
+  document: 12345678910,
 };
 
 class MockGetCustomerService {
   getById = jest.fn().mockResolvedValue(customer);
 }
 
-
-describe("GetUserApplication", () => {
+describe('GetUserApplication', () => {
   let application: GetCustomerApplication;
   let service: GetCustomerServiceInterface;
   beforeAll(async () => {
@@ -24,18 +23,18 @@ describe("GetUserApplication", () => {
         GetCustomerApplication,
         {
           provide: TYPES.services.GetCustomerServiceInteface,
-          useClass: MockGetCustomerService
-        }
-      ]
+          useClass: MockGetCustomerService,
+        },
+      ],
     }).compile();
 
     service = app.get(TYPES.services.GetCustomerServiceInteface);
     application = app.get<GetCustomerApplication>(GetCustomerApplication);
   });
 
-  describe("getById", () => {
-    it("should get customer by id", async () => {
-      const customerFindedHttpResponse = await application.getById(customer.id)
+  describe('getById', () => {
+    it('should get customer by id', async () => {
+      const customerFindedHttpResponse = await application.getById(customer.id);
       expect(customerFindedHttpResponse).toEqual(customerFindedHttpResponse);
     });
   });
