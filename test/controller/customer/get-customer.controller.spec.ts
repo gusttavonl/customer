@@ -49,7 +49,7 @@ describe("Get Customer Controller", () => {
       const httpResponseMock = httpMocks.createResponse() as Response;
       jest.spyOn(getCustomerAppMock, "getById");
 
-      const customerFindedHttpResponse = await controller.getById(customer.id, httpResponseMock)
+      const customerFindedHttpResponse = await controller.getById(customer.id, httpResponseMock);
       expect(customerFindedHttpResponse.statusCode).toBe(getCustomerHttpResponse.statusCode);
       expect(getCustomerAppMock.getById).toBeCalled();
     });

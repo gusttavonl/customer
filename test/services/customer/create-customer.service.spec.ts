@@ -25,7 +25,7 @@ describe("CreateCustomerService", () => {
       const customerDataToCreate = makeCustomerDomain();
       const customerCreatedHttpResponse = await sut.create(customerDataToCreate);
       
-      const customerCreated = customerCreatedHttpResponse.body
+      const customerCreated = customerCreatedHttpResponse.body;
       expect(customerCreated.id).not.toBeNull();
       expect(customerCreated.name).toEqual(customerDataToCreate.name);
       expect(customerCreated.document).toEqual(customerDataToCreate.document);

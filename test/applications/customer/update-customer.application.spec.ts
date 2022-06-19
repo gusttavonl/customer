@@ -50,7 +50,7 @@ describe("UpdateCustomerApplication", () => {
     it("should update customer", async () => {
       const customerUpdatedHttpResponse = await application.update('any_id', customerDomainWithId);
       
-      const customerUpdated = customerUpdatedHttpResponse.body
+      const customerUpdated = customerUpdatedHttpResponse.body;
 
       expect(customerUpdated.id).not.toBeNull();
       expect(customerUpdated.name).toEqual(customerDomainWithId.name);

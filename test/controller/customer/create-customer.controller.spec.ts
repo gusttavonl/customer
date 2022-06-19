@@ -54,7 +54,7 @@ describe("Create Customer Controller", () => {
       const httpResponseMock = httpMocks.createResponse() as Response;
       jest.spyOn(createCustomerAppMock, "create");
 
-      const customerCreatedHttpResponse = await controller.create(customerDataDomain, httpResponseMock)
+      const customerCreatedHttpResponse = await controller.create(customerDataDomain, httpResponseMock);
       expect(customerCreatedHttpResponse.statusCode).toEqual(createdCustomerResponse.statusCode);
       expect(createCustomerAppMock.create).toBeCalled();
     });

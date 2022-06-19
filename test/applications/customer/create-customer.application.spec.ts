@@ -48,7 +48,7 @@ describe("CreateCustomerApplication", () => {
   describe("create", () => {
     it("should create customer", async () => {
       const customerCreatedHttpResponse = await application.create(customerDataDomain);
-      const customerCreated = customerCreatedHttpResponse.body
+      const customerCreated = customerCreatedHttpResponse.body;
 
       expect(customerCreated.id).not.toBeNull();
       expect(customerCreated.name).toEqual(customerDataDomain.name);
