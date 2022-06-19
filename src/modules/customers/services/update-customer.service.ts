@@ -11,10 +11,15 @@ export class UpdateCustomerService implements UpdateCustomerServiceInterface {
 
   async update(idCustomerToUpdate: string, customerDataToUpdate: CustomerDomainWithId): Promise<HttpResponse> {
     const redisClient = await RedisHelper.getClient();
-
-    const newIdToCustomer = customerDataToUpdate.id
-    const idCustomerToUpdateIsEqualNewIdToCustomer = idCustomerToUpdate === newIdToCustomer
-    if(idCustomerToUpdateIsEqualNewIdToCustomer){
+   
+    const allCustomersKey = await redisClient.keys(`${CUSTOMER_KEY_REDIS}:*`);
+    const newIdToCustomer = customerDataToUpdate.id;
+    const keyWithNewIdCustomer = `${CUSTOMER_KEY_REDIS}:${newIdToCustomer}`
+    const newIdCustomerExistsOnCustomerKeys = allCustomersKey.includes(keyWithNewIdCustomer);
+    
+    const idCustomerToUpdateIsDifferentOfNewIdCustomer = idCustomerToUpdate !== newIdToCustomer
+    const newIdCustomerAlreadyExistsOnCustomerKeys = idCustomerToUpdateIsDifferentOfNewIdCustomer && newIdCustomerExistsOnCustomerKeys
+    if(newIdCustomerAlreadyExistsOnCustomerKeys){
       return conflict("id conflict");
     }
 
@@ -28,11 +33,17 @@ export class UpdateCustomerService implements UpdateCustomerServiceInterface {
 
     const updatedCustomer = { ...JSON.parse(customerFinded), ...customerDataToUpdate };
 
-    const keyWithIdCustomerUpdated = `${CUSTOMER_KEY_REDIS}:${updatedCustomer.id}`
     await redisClient.set(
-      keyWithIdCustomerUpdated,
+      keyWithNewIdCustomer,
       JSON.stringify(updatedCustomer),
     );
+
+    if(idCustomerToUpdateIsDifferentOfNewIdCustomer){
+      const oldKeyWithCustomerUpdatedId = keyWithIdCustomerToUpdateValues
+      await redisClient.del(
+        oldKeyWithCustomerUpdatedId,
+      );
+    }
 
     return ok(updatedCustomer)
   }
