@@ -81,25 +81,29 @@ describe("UpdateCustomerService", () => {
         customerDataToCreate
       );
 
+      const customerDataToCauseConflict = makeCustomerDomain();
+      const customerDataToCauseConflictHttpResponse = await sutCreateCustomer.create(
+        customerDataToCauseConflict
+      );
 
-      const customerCreatedId = customerCreatedHttpResponse.body.id
+
+      const customerCreatedId = customerCreatedHttpResponse.body.id;
+      const customerDataToCauseConflictId = customerDataToCauseConflictHttpResponse.body.id;
 
       const customerDataToUpdate: CustomerDomainWithId = {
-        id: customerCreatedId,
+        id: customerDataToCauseConflictId,
         name: "updated_name",
         document: 10987654321
       };
 
-      const customerUpdatedHttpResponse = await sutUpdateCustomer.update(
+      const customerNotUpdatedWithConflictHttpResponse = await sutUpdateCustomer.update(
         customerCreatedId,
         customerDataToUpdate
       );
-
-      const customerNotUpdatedWithConflictHttpResponse = customerUpdatedHttpResponse
       
-      const ConflictWithErrorMessage = conflict("id conflict")
-      expect(customerNotUpdatedWithConflictHttpResponse.statusCode).toEqual(ConflictWithErrorMessage.statusCode);
-      expect(customerNotUpdatedWithConflictHttpResponse.body).toEqual(ConflictWithErrorMessage.body);
+      const conflictWithErrorMessage = conflict("id conflict")
+      expect(customerNotUpdatedWithConflictHttpResponse.statusCode).toEqual(conflictWithErrorMessage.statusCode);
+      expect(customerNotUpdatedWithConflictHttpResponse.body).toEqual(conflictWithErrorMessage.body);
     });
   });
 });
