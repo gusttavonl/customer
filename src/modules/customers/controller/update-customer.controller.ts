@@ -7,8 +7,10 @@ import {
   ParseUUIDPipe,
   Put,
   Res,
+  UsePipes,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ValidationPipe } from '../../../common/helpers/validation';
 import { CustomerDomainWithId } from '../domain/customer.domain';
 import { TYPES } from '../interfaces/types';
 import { UpdateCustomerApplicationInterface } from '../interfaces/applications/update-customer.application.interface';
@@ -25,6 +27,7 @@ export class UpdateCustomerController {
     description: 'It updated a customer',
     type: Customer,
   })
+  @UsePipes(new ValidationPipe(CustomerDomainWithId))
   @Put(':id')
   async update(
     @Param('id', new ParseUUIDPipe()) idCustomerToUpdate: string,
