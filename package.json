@@ -5,7 +5,7 @@
     "author": "Gustavo Noronha <admin@gustavonoronha.com.br>",
     "scripts": {
         "build": "rimraf dist && tsc -p tsconfig.build.json",
-        "format": "prettier --write \"src/**/*.ts\"",
+        "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "start": "ts-node -r tsconfig-paths/register src/main.ts",
         "start:dev": "nest start -w",
         "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
@@ -54,8 +54,6 @@
         "@types/supertest": "^2.0.11",
         "@types/uuid": "^8.3.4",
         "@types/validator": "^13.7.3",
-        "@typescript-eslint/eslint-plugin": "^5.0.0",
-        "@typescript-eslint/parser": "^5.0.0",
         "axios-mock-adapter": "^1.20.0",
         "eslint": "^8.0.1",
         "eslint-config-prettier": "^8.3.0",
