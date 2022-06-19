@@ -28,8 +28,9 @@ export class UpdateCustomerService implements UpdateCustomerServiceInterface {
 
     const updatedCustomer = { ...JSON.parse(customerFinded), ...customerDataToUpdate };
 
+    const keyWithIdCustomerUpdated = `${CUSTOMER_KEY_REDIS}:${updatedCustomer.id}`
     await redisClient.set(
-      keyWithIdCustomerToUpdateValues,
+      keyWithIdCustomerUpdated,
       JSON.stringify(updatedCustomer),
     );
 
