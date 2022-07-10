@@ -14,9 +14,9 @@ OBS: para a validacao do token foi utilizada a seguinte documentacao sobre Instr
 > ## Rotas construídas no projeto
 * OBS: Para todas as rotas abaixo é necessário passar um Bearer token valido gerado com o [SSO](https://accounts.seguros.vitta.com.br/auth/realms/careers/protocol/openid-connect/token/)
 
-1. [Listagem de um cliente - GET] `/customers/:id`
-2. [Atualização de um cliente - PUT] `/customers/:id`
-3. [Exclusão de um cliente - DELETE] `/customers/:id`
+1. [Listar um cliente - GET] `/customers/:id`
+2. [Atualizar um cliente - PUT] `/customers/:id`
+3. [Criar um cliente - POST] `/customers/`
 
 
 > ## Testes
